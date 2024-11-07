@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List user</title>
+    <link rel="stylesheet" th:href="@{/plugins/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="col-md-6" style="margin: 50px auto">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>List user</h1>
+            </div>
+        </div>
+        <div th:if="${success}" class="alert alert-success">
+            [[${success}]]
+        </div>
+        <div th:if="${error}" class="alert alert-danger">
+            [[${error}]]
+        </div>
+    </div>
+    <form th:action="@{/users/search}" method="get" class="col-md-6">
+        <label>Search</label>
+        <div class="col-sm-10">
+            <input name="name" type="text" class="form-control col-md-6" placeholder="Search"/>
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+    <a th:href="@{/users/create}" class="btn btn-primary">Add new user</a>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">NAME</th>
+            <th scope="col">ADDRESS</th>
+            <th scope="col">DATE OF BIRTH</th>
+            <th scope="col">ACTION</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="user : ${users}">
+            <tr>
+                <th scope="row" th:text="${user.id}"></th>
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.address}"></td>
+                <td th:text="${user.dateOfBirth}"></td>
+                <td>
+                    <a th:href="@{/users/edit(id=${user.id})}" class="btn btn-warning">Edit</a>
+                    <a th:href="@{/users/remove(id=${user.id})}" class="btn btn-danger">Remove</a>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</div>
+<script th:href="@{/plugins/bootstrap.min.js}"></script>
+</body>
+</html>
